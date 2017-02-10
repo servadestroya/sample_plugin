@@ -20,15 +20,17 @@ matrix:
 install:
     - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
     - tar -xzf $(cat sourcemod-latest-linux)
+    - COMPILE_SOURCEMOD_FOLDER="$TRAVIS_BUILD_DIR/addons/sourcemod"
+    - COMPILE_SCRIPTING_FOLDER="$TRAVIS_BUILD_DIR/addons/sourcemod/scripting"
     - COMMIT_NUMBER=$(git rev-list --count HEAD)
 before_script:
-    - cp -r ./scripting ./addons/sourcemod
-    - chmod +x ./addons/sourcemod/scripting/spcomp
-    - mkdir ./plugins
+    - cp -r "$TRAVIS_BUILD_DIR/scripting" "$COMPILE_SOURCEMOD_FOLDER"
+    - chmod +x "$COMPILE_SCRIPTING_FOLDER/spcomp"
+    - mkdir "$TRAVIS_BUILD_DIR/plugins"
     - FILE=example-n$COMMIT_NUMBER.zip
 # And compile!
 script: 
-    - ./addons/sourcemod/scripting/spcomp ./addons/sourcemod/scripting/example.sp -o./plugins/example.smx
+    - $COMPILE_SCRIPTING_FOLDER/spcomp $COMPILE_SCRIPTING_FOLDER/example.sp -o$TRAVIS_BUILD_DIR/plugins/example.smx
 
 before_deploy: zip -r $FILE ./plugins/ ./scripting/
 
