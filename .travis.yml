@@ -35,12 +35,12 @@ before_deploy: zip -r $FILE ./plugins/ ./scripting/
 deploy:
     provider: releases
     api_key:
-        secure: 
+        secure: qNYE5Cs2nUYNSt/nTW27ENKKXKY/UjDa+wmsOv8ftB2PPZLoF8a9q+3XrtOexOqfPrhlzfCa/ngXU1IUhBeaPKj2JyF7uWf2uw9gCI7UKIvV6eMiHtjejEYl1B5ZTwinvU/RJx25rUmS3q14z/RA/PcpUvAx+9hVvq/e6Y5qrH8hHOxyRkrkrnD3rdTgBtfMtlDkZT99IeIvcnIw0fsbyA/S+F7nv6O+ZGLOcM6n8tK236PQLwcZBoM07bK/PL6n7Q1GHMS8UiVhIncfzfo735SUfA6l0LKhsXlNKugWLWYeNKUT/3Fug9BLzHeXjFNHmO67pg06K0+rzAbsG8q/Sd34gnbMMWNrb6myKukQe3Ch7Q1FxrEW/mnjiYAwqWf2lsC5KbTNMPp0UzjeGJACrtR25N0WKr+SdapVyLviGW7rwUGc9aGk1T60aE9ssh1HKUe4pdbIhYKogZyFwy+x6ST+bSiaNqZxheWjcVsUseoHJ/cENXp+SbLpEByAV0NeouLhi9O6Suz6+knLXWby5sjBAFgKOOIz+HEEWeN1tzrUgmOkXDW0uj2CA5VOdvNmf0jPgXZ+9NJRqaiToyJ6QJKAHsZbmraAVbdhG6TwvTGS9JwoSwZKGGNceBADZiH3cpJbPZfwmrU5D4/5VdMuStO7kM49eDtywzj5hxdfIyw=
     file: $FILE
     skip_cleanup: true
     on:
         condition: $SMVERSION = 1.8
-        repo: fakuivan/project
+        repo: servadestroya/sample_plugin
         tags: true
 
 # Notifications
