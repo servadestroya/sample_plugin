@@ -1,0 +1,48 @@
+# Use the new container-based infrastructure
+sudo: false
+
+# Install some apt packages needed for spcomp
+addons:
+    apt_packages:
+        - lib32stdc++6
+
+# Set the build environment
+env:
+    - SMVERSION=1.8 # Stable
+    - SMVERSION=1.9 # Unstable
+
+# Allow the experimental branch to fail
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: SMVERSION=1.9
+
+install:
+    - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
+    - tar -xzf $(cat sourcemod-latest-linux)
+    - COMMIT_NUMBER=$(git rev-list --count HEAD)
+before_script:
+    - cp -r ./scripting ./addons/sourcemod
+    - chmod +x ./addons/sourcemod/scripting/spcomp
+    - mkdir ./plugins
+    - FILE=example-n$COMMIT_NUMBER.zip
+# And compile!
+script: 
+    - ./addons/sourcemod/scripting/spcomp ./addons/sourcemod/scripting/example.sp -o./plugins/example.smx
+
+before_deploy: zip -r $FILE ./plugins/ ./scripting/
+
+deploy:
+    provider: releases
+    api_key:
+        secure: 
+    file: $FILE
+    skip_cleanup: true
+    on:
+        condition: $SMVERSION = 1.8
+        repo: fakuivan/project
+        tags: true
+
+# Notifications
+notifications:
+    email: false
