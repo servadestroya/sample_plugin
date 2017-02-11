@@ -36,7 +36,10 @@ before_script:
 script: 
     - $COMPILE_SCRIPTING_FOLDER/spcomp $COMPILE_SCRIPTING_FOLDER/example.sp -o$TRAVIS_BUILD_DIR/plugins/example.smx
 
-before_deploy: zip -r $FILE ./plugins/ ./scripting/
+before_deploy: 
+    - PACKAGE_DIRS[0]="./plugins/"
+    - PACKAGE_DIRS[1]="./scripting/"
+    - zip -r $FILE ${PACKAGE_DIRS[*]}
 
 deploy:
     provider: releases
