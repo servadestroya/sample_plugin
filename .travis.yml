@@ -4,8 +4,11 @@ sudo: false
 # Install some apt packages needed for spcomp
 addons:
     apt:
+        sources: 
+            - deadsnakes
         packages:
             - lib32stdc++6
+            - python3.5
 
 # Set the build environment
 env:
